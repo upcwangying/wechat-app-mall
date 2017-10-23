@@ -34,9 +34,9 @@ Page({
   },
   onLoad: function () {
       this.initEleWidth();
-      this.onshow();
+      this.onShow();
   },
-  onshow: function(){
+  onShow: function(){
       var shopList = [];
       // 获取购物车数据
       var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
@@ -122,6 +122,7 @@ Page({
             total+= parseFloat(curItem.price)*curItem.number;
           }
       }
+      total = parseFloat(total.toFixed(2));//js浮点计算bug，取两位小数精度
       return total;
    },
    allSelect:function(){
@@ -234,38 +235,49 @@ Page({
    },
    deleteSelected:function(){
       var list = this.data.goodsList.list;
-      for(var i = 0 ; i < list.length ; i++){
-            var curItem = list[i];
+     /*
+      for(let i = 0 ; i < list.length ; i++){
+            let curItem = list[i];
             if(curItem.active){
               list.splice(i,1);
             }
       }
+      */
+     // above codes that remove elements in a for statement may change the length of list dynamically
+     list = list.filter(function(curGoods) {
+        return !curGoods.active;
+     });
      this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),list);
     },
     toPayOrder:function(){
       wx.showLoading();
       var that = this;
       if (this.data.goodsList.noSelect) {
+        wx.hideLoading();
         return;
       }
       // 重新计算价格，判断库存
       var shopList = [];
       var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
       if (shopCarInfoMem && shopCarInfoMem.shopList) {
-        shopList = shopCarInfoMem.shopList
+        // shopList = shopCarInfoMem.shopList
+        shopList = shopCarInfoMem.shopList.filter(entity => {
+          return entity.active;
+        });
       }
       if (shopList.length == 0) {
+        wx.hideLoading();
         return;
       }
       var isFail = false;
       var doneNumber = 0;
       var needDoneNUmber = shopList.length;
-      for (var i =0; i < shopList.length; i++) {
+      for (let i =0; i < shopList.length; i++) {
         if (isFail) {
           wx.hideLoading();
           return;
         }
-        var carShopBean = shopList[i];
+        let carShopBean = shopList[i];
         // 获取价格和库存
         if (!carShopBean.propertyChildIds || carShopBean.propertyChildIds == "") {
           wx.request({

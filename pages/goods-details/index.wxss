@@ -54,12 +54,21 @@ swiper-item image {
   color: #000;
   margin-bottom: 28rpx;
 }
+.goods-info .goods-share{
+  box-sizing: border-box;
+  padding: 0 35rpx;
+  font-size: 25rpx;
+  line-height: 1.4;
+  color: #CC0000;
+  margin-bottom: 28rpx;
+}
 .goods-info .goods-price{
    box-sizing:border-box;
-   padding: 0 35rpx;
    color:#e64340;
    font-size: 28rpx;
    font-weight: bold;
+   width: 30%;
+   float:left;
 }
 .row-arrow{
   width: 100%;
@@ -108,6 +117,19 @@ swiper-item image {
   display: flex;
   box-shadow:0 0 8rpx 0 ;
 }
+.footer-box .contact{
+  position: relative;
+  width: 120rpx;
+  height: 100%;
+  line-height: 100rpx;
+  text-align: center;
+  padding-top: 26rpx;
+  font-size:20rpx;
+  color:#008000;
+  box-sizing: border-box;
+  background:url("https://cdn.it120.cc/images/weappshop/kefu.png") no-repeat center 21rpx;
+  background-size: 55rpx auto;
+}
 .footer-box .shop-cart-btn{
   position: relative;
   width: 150rpx;
@@ -129,7 +151,7 @@ swiper-item image {
 }
 .footer-box .join-shop-cart{
   text-align: center;
-  width: 300rpx;
+  width: 250rpx;
   height: 100%;
   line-height: 100rpx;
   background-color: #ff6850;
@@ -139,7 +161,7 @@ swiper-item image {
 .footer-box .now-buy{
   text-align: center;
   height: 100%;
-  width: 300rpx;
+  width: 250rpx;
   line-height: 100rpx;
   background-color: #e64340;
   color:#fff;

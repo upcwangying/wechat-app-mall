@@ -10,8 +10,6 @@ function wxpay(app, money, orderId, redirectUrl) {
     },
     //method:'POST',
     success: function(res){
-      console.log('api result:');
-      console.log(res.data);
       if(res.data.code == 0){
         // 发起支付
         wx.requestPayment({
@@ -31,7 +29,7 @@ function wxpay(app, money, orderId, redirectUrl) {
           }
         })
       } else {
-        wx.showToast({title: '服务器忙' + res.data.code})
+        wx.showToast({ title: '服务器忙' + res.data.code + res.data.msg})
       }
     }
   })
